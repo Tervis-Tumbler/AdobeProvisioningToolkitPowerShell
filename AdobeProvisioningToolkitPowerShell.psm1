@@ -21,13 +21,20 @@ function Get-AdobeProvisioningToolkitAdobe_PRTKFilePath {
     }
 }
 
-function Invoke-AdobeProvisioningToolkitSerialize {
+function Invoke-AdobeProvisioningToolkitSerializeGenerate {
     param (
         $SerialNumber,
         $LicensingIdentifier,
         $ProvisioningXMLFilePath
     )
     & $Script:Adobe_PRTKFilePath --tool=VolumeSerialize --generate --serial=$SerialNumber --leid=$LicensingIdentifier --provfilepath=$ProvisioningXMLFilePath
+}
+
+function Invoke-AdobeProvisioningToolkitSerializeLoad {
+    param (
+        $ProvisioningXMLFilePath
+    )
+    & $Script:Adobe_PRTKFilePath --tool=VolumeSerialize --provfile=$ProvisioningXMLFilePath
 }
 
 function Get-AdobeProvisioningToolkitLicensingIdentifiers {

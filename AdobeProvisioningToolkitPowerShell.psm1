@@ -32,9 +32,13 @@ function Invoke-AdobeProvisioningToolkitSerializeGenerate {
 
 function Invoke-AdobeProvisioningToolkitSerializeLoad {
     param (
-        $ProvisioningXMLFilePath
+        $ProvisioningXMLFilePath,
+        $ComputerName
     )
-    & $Script:Adobe_PRTKFilePath --tool=VolumeSerialize --provfile=$ProvisioningXMLFilePath
+    $Adobe_PRTKFilePath = $Script:Adobe_PRTKFilePath
+    Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+        & $Using:Adobe_PRTKFilePath --tool=VolumeSerialize --provfile=$Using:ProvisioningXMLFilePath
+    }
 }
 
 function Get-AdobeProvisioningToolkitLicensingIdentifiers {
